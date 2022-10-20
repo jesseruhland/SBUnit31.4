@@ -2,6 +2,8 @@ const fs = require("fs");
 const axios = require("axios");
 const argv = process.argv.slice(2);
 
+// handle reading files
+
 function cat(path, out) {
   fs.readFile(path, "utf8", function (err, data) {
     if (err) {
@@ -14,6 +16,8 @@ function cat(path, out) {
     }
   });
 }
+
+// handle reading URLs
 
 async function webCat(path, out) {
   try {
@@ -28,6 +32,8 @@ async function webCat(path, out) {
   }
 }
 
+// helper to check if string input is a valid URL
+
 function checkForURL(str) {
   try {
     new URL(str);
@@ -37,6 +43,8 @@ function checkForURL(str) {
   }
 }
 
+// write output to file
+
 function writeToFile(out, data) {
   fs.writeFile(out, data, "utf8", function (err) {
     if (err) {
@@ -44,6 +52,8 @@ function writeToFile(out, data) {
     }
   });
 }
+
+// take command line input and determine how to handle output (this runs the code above)
 
 if (argv[0] == "--out" && argv.length == 3) {
   if (checkForURL(argv[2])) {
